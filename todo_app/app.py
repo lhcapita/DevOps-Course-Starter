@@ -11,6 +11,9 @@ app.config.from_object(Config())
 def index():
     error = request.args.get("error") or False
     items = get_items()
+
+    items = sorted(items, key=lambda item: item["status"])
+
     return render_template("index.html", items=items, error=error)
 
 @app.route("/addtodo", methods = ["POST"])
