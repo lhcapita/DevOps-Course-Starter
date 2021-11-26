@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for
 
 from todo_app.flask_config import Config
 from todo_app.data.session_items import get_item, get_items, save_item, add_item, delete_item
+from todo_app.utils import SimpleValidation
 
 app = Flask(__name__)
 app.config.from_object(Config())
@@ -19,9 +20,7 @@ def index():
 @app.route("/addtodo", methods = ["POST"])
 def AddToDo():
     title = request.form.get("todoItem")
-    error = False
-    if not title or not title.strip():
-        error = True
+    error = SimpleValidation(title)
 
     if(error):
         return redirect(url_for("index", error=error))
@@ -37,12 +36,7 @@ def UpdateToDo(id):
         title = request.form.get("title")
         status = request.form.get("status")
 
-        error = False
-
-        if not title or not title.strip():
-            error = True
-        if not status or not status.strip():
-            error = True
+        error = SimpleValidation(title, status)
         
         if error:
             return render_template("updateToDo.html", item=item)
