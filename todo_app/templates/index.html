@@ -39,7 +39,7 @@
       <h2>Add To Do Item</h2>
       <form method="POST" action="{{ url_for('AddToDo') }}">
         <label for="todoItem">Title</label><br>
-        <input type="text" id="todoItem" name="todoItem" value="{{ title }}">{% if error %}<label style="color: red; padding-left: 4px;"> * Please enter a valid title</label>{% endif %}<br><br>
+        <input type="text" id="todoItem" name="todoItem" value="{{ title }}" required>{% if error %}<label style="color: red; padding-left: 4px;"> * Please enter a valid title</label>{% endif %}<br><br>
         <input type="submit" value="Submit">
       </form>
     </div>
