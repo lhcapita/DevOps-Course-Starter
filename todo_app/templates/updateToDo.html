@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block title %}To-Do App{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1 class="display-4">Update To Do</h1>
+    <p class="lead">Just another to-do app.</p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Item</h2>
+      <ul class="list-group mb-4">
+          <li>{{item["title"]}}</li>
+      </ul>
+    </div>
+  </div>
+
+
+    <form action="{{ url_for('UpdateToDo', id=item['id'] ) }}" method="POST">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Item</h2>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Set Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" id="title" name="title" value="{{ item['title'] }}">{% if error %}<label style="color: red; padding-left: 4px;"> * Please enter a valid title</label>{% endif %}<br><br>
+                                <!---{{item["title"]}} -->
+                            </td>
+                            <td>
+                                <!---{{item["status"]}} -->
+                                <select class="form-control" id="status" name="status">
+                                    <option {% if item["status"] == "Not Started" %} selected{%endif%}>Not Started</option>
+                                    <option {% if item["status"] == "In Progress" %} selected{%endif%}>In Progress</option>
+                                    <option {% if item["status"] == "Peer Review" %} selected{%endif%}>Peer Review</option>
+                                    <option {% if item["status"] == "On Hold" %} selected{%endif%}>On Hold</option>
+                                    <option {% if item["status"] == "Completed" %} selected{%endif%}>Completed</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+
+  <!---
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Add To Do Item</h2>
+      <form method="POST" action="{{ url_for('AddToDo') }}">
+        <label for="todoItem">Title</label><br>
+        <input type="text" id="todoItem" name="todoItem" value="{{ title }}">{% if error %}<label style="color: red; padding-left: 4px;"> * Please enter a valid title</label>{% endif %}<br><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+  -->
+{% endblock %}

@@ -26,3 +26,29 @@ def AddToDo():
         add_item(title)
 
     return redirect(url_for("index"),)
+
+@app.route("/updateToDo/<id>", methods=["GET", "POST"])
+def UpdateToDo(id):
+    if request.method == "POST":
+        item = get_item(id)
+        title = request.form.get("title")
+        status = request.form.get("status")
+
+        error = False
+
+        if not title or not title.strip():
+            error = True
+        if not status or not status.strip():
+            error = True
+        
+        if error:
+            return render_template("updateToDo.html", item=item)
+
+        item["title"] = title
+        item["status"] = status
+        save_item(item)
+        return redirect(url_for("index"))
+
+    if request.method == "GET":
+        item = get_item(id)
+        return render_template("updateToDo.html", item=item)
