@@ -28,7 +28,7 @@
               <td>{{item["title"]}}</td>
               <td>{{item["status"]}}</td>
               <td><a href="{{ url_for('UpdateToDo', id=item['id'] ) }}">Update</a></td>
-              <td><a href="">Delete</a></td>
+              <td><a href="{{ url_for('DeleteToDo', id=item['id'] ) }}">Delete</a></td>
             </tr>
             {% endfor %}
           </tbody>

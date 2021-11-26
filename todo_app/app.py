@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for
 
 from todo_app.flask_config import Config
-from todo_app.data.session_items import get_item, get_items, save_item, add_item
+from todo_app.data.session_items import get_item, get_items, save_item, add_item, delete_item
 
 app = Flask(__name__)
 app.config.from_object(Config())
@@ -55,3 +55,11 @@ def UpdateToDo(id):
     if request.method == "GET":
         item = get_item(id)
         return render_template("updateToDo.html", item=item)
+
+@app.route("/deleteToDo/<id>")
+def DeleteToDo(id):
+
+    delete_item(id)
+
+    return redirect(url_for("index"))
+
