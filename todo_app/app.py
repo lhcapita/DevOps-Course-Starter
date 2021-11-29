@@ -7,6 +7,8 @@ from todo_app.utils import SimpleValidation
 app = Flask(__name__)
 app.config.from_object(Config())
 
+# Route for the index page
+# Display the to do items on the index page - retrieving them from the session. Sort Alphabetically.
 
 @app.route('/')
 def index():
@@ -16,6 +18,12 @@ def index():
     items = sorted(items, key=lambda item: item["status"])
 
     return render_template("index.html", items=items, error=error)
+
+#End of Index
+
+#Route for the Add To Do POST request
+#Get and validate items from the form, if there's an error, return to the index page with an error
+#displayed, otherwise add the item to the session, and return to the index page.
 
 @app.route("/addtodo", methods = ["POST"])
 def AddToDo():
@@ -27,7 +35,13 @@ def AddToDo():
     else:
         add_item(title)
 
-    return redirect(url_for("index"),)
+    return redirect(url_for("index"))
+
+#End of AddToDo
+
+#Route for UpdateToDo
+#Update a to do item, change the status, or title in the form. Validation is done on the post,
+# for the get, the existing item populates the form, and updates can be made.
 
 @app.route("/updateToDo/<id>", methods=["GET", "POST"])
 def UpdateToDo(id):
@@ -50,6 +64,11 @@ def UpdateToDo(id):
         item = get_item(id)
         return render_template("updateToDo.html", item=item)
 
+#End of UpdateToDo
+
+#Route for DeleteToDo
+#this request removes an item from the session, and then redirects to the homepage.
+
 @app.route("/deleteToDo/<id>")
 def DeleteToDo(id):
 
@@ -57,3 +76,6 @@ def DeleteToDo(id):
 
     return redirect(url_for("index"))
 
+#End of DeleteToDo
+
+#EOF
