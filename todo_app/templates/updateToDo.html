@@ -7,16 +7,6 @@
     <p class="lead">Just another to-do app.</p>
   </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Item</h2>
-      <ul class="list-group mb-4">
-          <li>{{item["title"]}}</li>
-      </ul>
-    </div>
-  </div>
-
-
     <form action="{{ url_for('UpdateToDo', id=item['id'] ) }}" method="POST">
         <div class="row">
             <div class="col-md-12">
