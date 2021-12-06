@@ -1,6 +1,6 @@
 
 
-def SimpleValidation(*argv):
+def simple_validation(*argv):
 
     error = False
 

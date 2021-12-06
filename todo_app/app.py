@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for
 
 from todo_app.flask_config import Config
 from todo_app.data.session_items import get_item, get_items, save_item, add_item, delete_item
-from todo_app.utils import SimpleValidation
+from todo_app.utils import simple_validation
 
 app = Flask(__name__)
 app.config.from_object(Config())
@@ -28,7 +28,7 @@ def index():
 @app.route("/addtodo", methods = ["POST"])
 def AddToDo():
     title = request.form.get("todoItem")
-    error = SimpleValidation(title)
+    error = simple_validation(title)
 
     if(error):
         return redirect(url_for("index", error=error))
@@ -43,26 +43,28 @@ def AddToDo():
 #Update a to do item, change the status, or title in the form. Validation is done on the post,
 # for the get, the existing item populates the form, and updates can be made.
 
-@app.route("/updateToDo/<id>", methods=["GET", "POST"])
+@app.route("/updateToDo/<id>", methods=["GET"])
 def UpdateToDo(id):
-    if request.method == "POST":
-        item = get_item(id)
-        title = request.form.get("title")
-        status = request.form.get("status")
+    item = get_item(id)
+    return render_template("updateToDo.html", item=item)
 
-        error = SimpleValidation(title, status)
-        
-        if error:
-            return render_template("updateToDo.html", item=item)
 
-        item["title"] = title
-        item["status"] = status
-        save_item(item)
-        return redirect(url_for("index"))
+@app.route("/updateToDo/<id>", methods=["POST"])
+def UpdateToDoPost(id):
+    item = get_item(id)
+    title = request.form.get("title")
+    status = request.form.get("status")
 
-    if request.method == "GET":
-        item = get_item(id)
+    error = simple_validation(title, status)
+    
+    if error:
         return render_template("updateToDo.html", item=item)
+
+    item["title"] = title
+    item["status"] = status
+    save_item(item)
+    return redirect(url_for("index"))
+
 
 #End of UpdateToDo
 
