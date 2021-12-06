@@ -10,9 +10,38 @@
   <div class="row">
     <div class="col-md-12">
       <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-      </ul>
+
+      
+      <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Status</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            {% for item in items %}
+            <tr>
+              <td>{{item["title"]}}</td>
+              <td>{{item["status"]}}</td>
+              <td><a href="{{ url_for('UpdateToDo', id=item['id'] ) }}">Update</a></td>
+              <td><a href="{{ url_for('DeleteToDo', id=item['id'] ) }}">Delete</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Add To Do Item</h2>
+      <form method="POST" action="{{ url_for('AddToDo') }}">
+        <label for="todoItem">Title</label><br>
+        <input type="text" id="todoItem" name="todoItem" value="{{ title }}" required>{% if error %}<label style="color: red; padding-left: 4px;"> * Please enter a valid title</label>{% endif %}<br><br>
+        <input type="submit" value="Submit">
+      </form>
     </div>
   </div>
 {% endblock %}
