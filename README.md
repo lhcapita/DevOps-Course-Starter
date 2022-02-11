@@ -42,6 +42,8 @@ To generate the Board ID run a GET API request on the following url: https://api
 
 Update the Trello secrets in the .env.template file and or the .env file.
 
+The lists used in Trello for testing were: "Not Started", "In Progress", "Peer Review", "On Hold", "Completed".
+
 ## Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by running:
