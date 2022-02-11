@@ -23,12 +23,15 @@ def index():
 @app.route("/addtodo", methods = ["POST"])
 def AddToDo():
     title = request.form.get("todoItem")
+    desc = request.form.get("desc")
+    due = request.form.get("date-due")
+
     error = simple_validation(title)
 
     if(error):
         return redirect(url_for("index", error=error))
     else:
-        add_trello_item(title)
+        add_trello_item(title, desc, due)
 
     return redirect(url_for("index"))
 

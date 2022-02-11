@@ -89,7 +89,7 @@ def get_trello_list_id(status):
 
     return None
 
-def add_trello_item(title):
+def add_trello_item(title, desc, due):
 
     board_id = os.getenv("TRELLO_BOARD_ID")
     key = os.getenv("TRELLO_API_KEY")
@@ -106,6 +106,8 @@ def add_trello_item(title):
     query = {
         "name": title,
         "idList": idList,
+        "desc": desc,
+        "due": due,
         "key": key,
         "token": token
     }

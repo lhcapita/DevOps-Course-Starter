@@ -44,8 +44,26 @@
       <form method="POST" action="{{ url_for('AddToDo') }}">
         <label for="todoItem">Title</label><br>
         <input type="text" id="todoItem" name="todoItem" value="{{ title }}" required>{% if error %}<label style="color: red; padding-left: 4px;"> * Please enter a valid title</label>{% endif %}<br><br>
+
+        
+        <label for="Description">Description</label><br>
+        <textarea class="form-control" id="description" name="desc" rows="3"></textarea>
+        
+        <br>
+
+        <label for="date-due">Date Due</label><br>
+        <div class="input-group date" data-provide="datepicker">
+            <input type="text" name="date-due" class="date-due" data-date-format="yyyy-mm-dd" value="{{due}}">
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
+        </div>
+
+        <br>
+
         <input type="submit" value="Submit">
       </form>
     </div>
   </div>
+  <br><br>
 {% endblock %}
