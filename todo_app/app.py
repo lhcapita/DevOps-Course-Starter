@@ -1,10 +1,10 @@
 from flask import Flask, request, render_template, redirect, url_for
 
 from todo_app.flask_config import Config
-from todo_app.data.session_items import save_item, delete_item
+from todo_app.data.session_items import save_item
 from todo_app.utils import simple_validation
 
-from todo_app.data.trello_items import get_trello_items, get_trello_item, add_trello_item
+from todo_app.data.trello_items import get_trello_items, get_trello_item, add_trello_item, delete_trello_item
 
 app = Flask(__name__)
 app.config.from_object(Config())
@@ -59,6 +59,6 @@ def UpdateToDoPost(id):
 @app.route("/deleteToDo/<id>")
 def DeleteToDo(id):
 
-    delete_item(id)
+    delete_trello_item(id)
 
     return redirect(url_for("index"))
