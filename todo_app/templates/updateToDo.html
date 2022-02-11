@@ -25,11 +25,9 @@
                             </td>
                             <td>
                                 <select class="form-control" id="status" name="status">
-                                    <option {% if item["status"] == "Not Started" %} selected{%endif%}>Not Started</option>
-                                    <option {% if item["status"] == "In Progress" %} selected{%endif%}>In Progress</option>
-                                    <option {% if item["status"] == "Peer Review" %} selected{%endif%}>Peer Review</option>
-                                    <option {% if item["status"] == "On Hold" %} selected{%endif%}>On Hold</option>
-                                    <option {% if item["status"] == "Completed" %} selected{%endif%}>Completed</option>
+                                    {% for status in statuses %}
+                                    <option {% if item["status"] == status["name"] %} selected{%endif%}>{{status["name"]}}</option>
+                                    {% endfor %}
                                 </select>
                             </td>
                         </tr>

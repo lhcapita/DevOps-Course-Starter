@@ -87,15 +87,6 @@ def get_trello_list_id(status):
 
     return None
 
-def get_trello_list_status(id):
-    trello_lists = get_trello_lists()
-
-    for trello_list in trello_lists:
-        if trello_list["id"] == id:
-            return trello_list["name"]
-
-    return None
-
 def add_trello_item(title):
 
     board_id = os.getenv("TRELLO_BOARD_ID")
@@ -124,6 +115,41 @@ def add_trello_item(title):
     new_card_id = new_card["id"]
 
     return get_trello_item(new_card_id)
+
+def save_trello_item(item):
+
+    print(item)
+    
+    board_id = os.getenv("TRELLO_BOARD_ID")
+    key = os.getenv("TRELLO_API_KEY")
+    token = os.getenv("TRELLO_API_TOKEN")
+
+    id = item["id"]
+
+    url = f"https://api.trello.com/1/cards/{id}"
+
+    headers = {
+        "Accept": "application/json"
+    }
+
+    data = {
+        "id": item["id"],
+        "idList": get_trello_list_id(item["status"]),
+        "name": item["title"]
+    }
+
+    query = {
+        "key": key,
+        "token": token
+    }
+
+    response = requests.put(url, headers=headers, data=data, params=query)
+
+    print(response.text)
+
+    print(json.dumps(response.json(), indent=4))
+
+    return item
 
 def delete_trello_item(id):
 

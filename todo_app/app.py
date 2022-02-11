@@ -1,10 +1,9 @@
 from flask import Flask, request, render_template, redirect, url_for
 
 from todo_app.flask_config import Config
-from todo_app.data.session_items import save_item
 from todo_app.utils import simple_validation
 
-from todo_app.data.trello_items import get_trello_items, get_trello_item, add_trello_item, delete_trello_item
+from todo_app.data.trello_items import get_trello_lists, get_trello_items, get_trello_item, add_trello_item, save_trello_item, delete_trello_item
 
 app = Flask(__name__)
 app.config.from_object(Config())
@@ -36,7 +35,8 @@ def AddToDo():
 @app.route("/updateToDo/<id>", methods=["GET"])
 def UpdateToDo(id):
     item = get_trello_item(id)
-    return render_template("updateToDo.html", item=item)
+    trello_lists = get_trello_lists()
+    return render_template("updateToDo.html", item=item, statuses = trello_lists)
 
 
 @app.route("/updateToDo/<id>", methods=["POST"])
@@ -48,11 +48,12 @@ def UpdateToDoPost(id):
     error = simple_validation(title, status)
     
     if error:
-        return render_template("updateToDo.html", item=item)
+        trello_lists = get_trello_lists()
+        return render_template("updateToDo.html", item=item, statuses = trello_lists)
 
     item["title"] = title
     item["status"] = status
-    save_item(item)
+    save_trello_item(item)
     return redirect(url_for("index"))
 
 
