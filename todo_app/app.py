@@ -4,6 +4,8 @@ from todo_app.flask_config import Config
 from todo_app.data.session_items import get_item, get_items, save_item, add_item, delete_item
 from todo_app.utils import simple_validation
 
+from todo_app.data.trello_items import get_trello_items, get_trello_item
+
 app = Flask(__name__)
 app.config.from_object(Config())
 
@@ -11,7 +13,8 @@ app.config.from_object(Config())
 @app.route('/')
 def index():
     error = request.args.get("error") or False
-    items = get_items()
+
+    items = get_trello_items()
 
     items = sorted(items, key=lambda item: item["status"])
 
@@ -32,7 +35,7 @@ def AddToDo():
 
 @app.route("/updateToDo/<id>", methods=["GET"])
 def UpdateToDo(id):
-    item = get_item(id)
+    item = get_trello_item(id)
     return render_template("updateToDo.html", item=item)
 
 
