@@ -1,10 +1,10 @@
 from flask import Flask, request, render_template, redirect, url_for
 
 from todo_app.flask_config import Config
-from todo_app.data.session_items import get_item, get_items, save_item, add_item, delete_item
+from todo_app.data.session_items import save_item, delete_item
 from todo_app.utils import simple_validation
 
-from todo_app.data.trello_items import get_trello_items, get_trello_item
+from todo_app.data.trello_items import get_trello_items, get_trello_item, add_trello_item
 
 app = Flask(__name__)
 app.config.from_object(Config())
@@ -29,7 +29,7 @@ def AddToDo():
     if(error):
         return redirect(url_for("index", error=error))
     else:
-        add_item(title)
+        add_trello_item(title)
 
     return redirect(url_for("index"))
 

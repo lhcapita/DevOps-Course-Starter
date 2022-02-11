@@ -76,3 +76,32 @@ def get_trello_lists():
 
 
     return lists
+
+def add_trello_item(title):
+
+    board_id = os.getenv("TRELLO_BOARD_ID")
+    key = os.getenv("TRELLO_API_KEY")
+    token = os.getenv("TRELLO_API_TOKEN")
+
+    idList = get_trello_lists()[0]["id"]
+
+    url = "https://api.trello.com/1/cards/"
+
+    headers = {
+        "Accept": "application/json"
+    }
+
+    query = {
+        "name": title,
+        "idList": idList,
+        "key": key,
+        "token": token
+    }
+
+    response = requests.post(url, headers=headers, params=query)
+
+    new_card = response.json()
+
+    new_card_id = new_card["id"]
+
+    return get_trello_item(new_card_id)
