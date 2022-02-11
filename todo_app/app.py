@@ -41,7 +41,7 @@ def UpdateToDo(id):
 
 @app.route("/updateToDo/<id>", methods=["POST"])
 def UpdateToDoPost(id):
-    item = get_item(id)
+    item = get_trello_item(id)
     title = request.form.get("title")
     status = request.form.get("status")
 

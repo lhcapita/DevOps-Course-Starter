@@ -51,3 +51,28 @@ def get_trello_item(id):
     """
     items = get_trello_items()
     return next((item for item in items if item['id'] == id), None)
+
+def get_trello_lists():
+
+    board_id = os.getenv("TRELLO_BOARD_ID")
+    key = os.getenv("TRELLO_API_KEY")
+    token = os.getenv("TRELLO_API_TOKEN")
+
+    url = f"https://api.trello.com/1/boards/{board_id}/lists/"
+
+    headers = {
+        "Accept": "application/json"
+    }
+
+    query = {
+        "fields": "name,id",
+        "key": key,
+        "token": token
+    }
+
+    response = requests.get(url, headers=headers, params=query)
+
+    lists = response.json()
+
+
+    return lists
