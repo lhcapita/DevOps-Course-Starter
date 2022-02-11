@@ -137,7 +137,9 @@ def save_trello_item(item):
     data = {
         "id": item.id,
         "idList": get_trello_list_id(item.status),
-        "name": item.name
+        "name": item.name,
+        "desc": item.desc,
+        "due": item.due
     }
 
     query = {
@@ -145,11 +147,9 @@ def save_trello_item(item):
         "token": token
     }
 
+    print(data)
+
     response = requests.put(url, headers=headers, data=data, params=query)
-
-    print(response.text)
-
-    print(json.dumps(response.json(), indent=4))
 
     return item
 
@@ -180,7 +180,5 @@ def delete_trello_item(id):
     }
 
     response = requests.put(url, headers=headers, data=data, params=query)
-
-    print(json.dumps(response.json(), indent=4))
 
     return id

@@ -17,6 +17,8 @@
             <tr>
               <th scope="col">Title</th>
               <th scope="col">Status</th>
+              <th scope="col">Description</th>
+              <th scope="col">Due Date</th>
               <th scope="col">Update</th>
               <th scope="col">Delete</th>
             </tr>
@@ -27,6 +29,8 @@
             <tr>
               <td>{{item["name"]}}</td>
               <td>{{item["status"]}}</td>
+              <td>{{item["desc"]}}</td>
+              <td>{{item["due"]}}</td>
               <td><a href="{{ url_for('UpdateToDo', id=item['id'] ) }}">Update</a></td>
               <td><a href="{{ url_for('DeleteToDo', id=item['id'] ) }}">Delete</a></td>
             </tr>

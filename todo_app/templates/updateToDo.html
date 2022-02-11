@@ -16,6 +16,8 @@
                         <tr>
                             <th scope="col">Title</th>
                             <th scope="col">Set Status</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Due Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,6 +31,17 @@
                                     <option {% if item["status"] == status["name"] %} selected{%endif%}>{{status["name"]}}</option>
                                     {% endfor %}
                                 </select>
+                            </td>
+                            <td>
+                                    <textarea class="form-control" id="description" name="desc" rows="3">{{ item['desc'] }}</textarea>
+                            </td>
+                            <td>
+                                <div class="input-group date" data-provide="datepicker">
+                                    <input type="text" name="date-due" class="date-due" data-date-format="yyyy-mm-dd" value="{{due}}">
+                                    <div class="input-group-addon">
+                                        <span class="glyphicon glyphicon-th"></span>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>

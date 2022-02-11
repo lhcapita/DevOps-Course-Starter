@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for
 
 from todo_app.flask_config import Config
-from todo_app.utils import simple_validation
+from todo_app.utils import simple_validation, reformat_due_date
 
 from todo_app.data.trello_items import get_trello_lists, get_trello_items, get_trello_item, add_trello_item, save_trello_item, delete_trello_item
 
@@ -36,7 +36,8 @@ def AddToDo():
 def UpdateToDo(id):
     item = get_trello_item(id)
     trello_lists = get_trello_lists()
-    return render_template("updateToDo.html", item=item, statuses = trello_lists)
+    date_due_text = reformat_due_date(item.due)
+    return render_template("updateToDo.html", item=item, statuses = trello_lists, due=date_due_text)
 
 
 @app.route("/updateToDo/<id>", methods=["POST"])
@@ -44,15 +45,20 @@ def UpdateToDoPost(id):
     item = get_trello_item(id)
     title = request.form.get("title")
     status = request.form.get("status")
+    desc = request.form.get("desc")
+    due = request.form.get("date-due")
 
     error = simple_validation(title, status)
     
     if error:
         trello_lists = get_trello_lists()
-        return render_template("updateToDo.html", item=item, statuses = trello_lists)
+        date_due_text = reformat_due_date(item.due)
+        return render_template("updateToDo.html", item=item, statuses = trello_lists, due=date_due_text)
 
-    item.name= title
+    item.name = title
     item.status = status
+    item.desc = desc
+    item.due = due
     save_trello_item(item)
     return redirect(url_for("index"))
 
