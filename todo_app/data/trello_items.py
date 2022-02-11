@@ -2,6 +2,7 @@ import requests
 import os
 import json
 
+from todo_app.data.Item import Item
 
 def get_trello_items():
 
@@ -34,10 +35,11 @@ def get_trello_items():
         for card in cards:
             card_id = card["id"]
             card_name = card["name"]
-            item = {"id": card_id, "status": status, "title": card_name}
+            item = Item.from_trello_card(card, l)
             items.append(item)
 
     return items
+
 
 def get_trello_item(id):
     """
@@ -50,7 +52,7 @@ def get_trello_item(id):
         item: The saved item, or None if no items match the specified ID.
     """
     items = get_trello_items()
-    return next((item for item in items if item['id'] == id), None)
+    return next((item for item in items if item.id == id), None)
 
 def get_trello_lists():
 
@@ -124,7 +126,7 @@ def save_trello_item(item):
     key = os.getenv("TRELLO_API_KEY")
     token = os.getenv("TRELLO_API_TOKEN")
 
-    id = item["id"]
+    id = item.id
 
     url = f"https://api.trello.com/1/cards/{id}"
 
@@ -133,9 +135,9 @@ def save_trello_item(item):
     }
 
     data = {
-        "id": item["id"],
-        "idList": get_trello_list_id(item["status"]),
-        "name": item["title"]
+        "id": item.id,
+        "idList": get_trello_list_id(item.status),
+        "name": item.name
     }
 
     query = {
@@ -167,8 +169,8 @@ def delete_trello_item(id):
 
     data = {
         "id": id,
-        "idList": get_trello_list_id(item["status"]),
-        "name": item["title"],
+        "idList": get_trello_list_id(item.status),
+        "name": item.name,
         "closed": "true"
     }
 

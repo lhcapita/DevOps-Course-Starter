@@ -15,7 +15,7 @@ def index():
 
     items = get_trello_items()
 
-    items = sorted(items, key=lambda item: item["status"])
+    items = sorted(items, key=lambda item: item.status)
 
     return render_template("index.html", items=items, error=error)
 
@@ -51,8 +51,8 @@ def UpdateToDoPost(id):
         trello_lists = get_trello_lists()
         return render_template("updateToDo.html", item=item, statuses = trello_lists)
 
-    item["title"] = title
-    item["status"] = status
+    item.name= title
+    item.status = status
     save_trello_item(item)
     return redirect(url_for("index"))
 
