@@ -4,13 +4,20 @@ import json
 
 from todo_app.data.Item import Item
 
+def get_secrets():
+    secrets = {
+        "board_id": os.getenv("TRELLO_BOARD_ID"),
+        "key": os.getenv("TRELLO_API_KEY"),
+        "token": os.getenv("TRELLO_API_TOKEN")
+    }
+
+    return secrets
+
 def get_trello_items():
 
-    board_id = os.getenv("TRELLO_BOARD_ID")
-    key = os.getenv("TRELLO_API_KEY")
-    token = os.getenv("TRELLO_API_TOKEN")
+    secrets = get_secrets()
 
-    url = f"https://api.trello.com/1/boards/{board_id}/lists/"
+    url = f"https://api.trello.com/1/boards/{secrets['board_id']}/lists/"
 
     headers = {
         "Accept": "application/json"
@@ -18,8 +25,8 @@ def get_trello_items():
 
     query = {
         'cards': 'open',
-        "key": key,
-        "token": token
+        "key": secrets["key"],
+        "token": secrets["token"]
     }
 
     response = requests.get(url, headers=headers, params=query)
@@ -56,11 +63,9 @@ def get_trello_item(id):
 
 def get_trello_lists():
 
-    board_id = os.getenv("TRELLO_BOARD_ID")
-    key = os.getenv("TRELLO_API_KEY")
-    token = os.getenv("TRELLO_API_TOKEN")
+    secrets = get_secrets()
 
-    url = f"https://api.trello.com/1/boards/{board_id}/lists/"
+    url = f"https://api.trello.com/1/boards/{secrets['board_id']}/lists/"
 
     headers = {
         "Accept": "application/json"
@@ -68,8 +73,8 @@ def get_trello_lists():
 
     query = {
         "fields": "name,id",
-        "key": key,
-        "token": token
+        "key": secrets['key'],
+        "token": secrets['token']
     }
 
     response = requests.get(url, headers=headers, params=query)
@@ -91,9 +96,7 @@ def get_trello_list_id(status):
 
 def add_trello_item(title, desc, due):
 
-    board_id = os.getenv("TRELLO_BOARD_ID")
-    key = os.getenv("TRELLO_API_KEY")
-    token = os.getenv("TRELLO_API_TOKEN")
+    secrets = get_secrets()
 
     idList = get_trello_lists()[0]["id"]
 
@@ -108,8 +111,8 @@ def add_trello_item(title, desc, due):
         "idList": idList,
         "desc": desc,
         "due": due,
-        "key": key,
-        "token": token
+        "key": secrets['key'],
+        "token": secrets['token']
     }
 
     response = requests.post(url, headers=headers, params=query)
@@ -122,11 +125,7 @@ def add_trello_item(title, desc, due):
 
 def save_trello_item(item):
 
-    print(item)
-    
-    board_id = os.getenv("TRELLO_BOARD_ID")
-    key = os.getenv("TRELLO_API_KEY")
-    token = os.getenv("TRELLO_API_TOKEN")
+    secrets = get_secrets()
 
     id = item.id
 
@@ -145,11 +144,9 @@ def save_trello_item(item):
     }
 
     query = {
-        "key": key,
-        "token": token
+        "key": secrets['key'],
+        "token": secrets['token']
     }
-
-    print(data)
 
     response = requests.put(url, headers=headers, data=data, params=query)
 
@@ -159,9 +156,7 @@ def delete_trello_item(id):
 
     item = get_trello_item(id)
 
-    board_id = os.getenv("TRELLO_BOARD_ID")
-    key = os.getenv("TRELLO_API_KEY")
-    token = os.getenv("TRELLO_API_TOKEN")
+    secrets = get_secrets()
 
     url = f"https://api.trello.com/1/cards/{id}"
 
@@ -177,10 +172,8 @@ def delete_trello_item(id):
     }
 
     query = {
-        "key": key,
-        "token": token
+        "key": secrets['key'],
+        "token": secrets['token']
     }
 
-    response = requests.put(url, headers=headers, data=data, params=query)
-
-    return id
+    requests.put(url, headers=headers, data=data, params=query)

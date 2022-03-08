@@ -13,5 +13,6 @@ class Item:
     def from_trello_card(cls, card, list):
         due = card['due']
         if(due != None):
-            due = due.split("T")[0]
+            due = datetime.strptime(due, '%Y-%m-%dT%H:%M:%S.%fZ')
+            due = due.date()
         return cls(card['id'], card['name'], list['name'], card['desc'], due)
