@@ -25,7 +25,7 @@
           </thead>
           <tbody>
             
-            {% for item in items %}
+            {% for item in view_model.items %}
             <tr>
               <td>{{item["name"]}}</td>
               <td>{{item["status"]}}</td>
@@ -43,7 +43,7 @@
       <h2>Add To Do Item</h2>
       <form method="POST" action="{{ url_for('AddToDo') }}">
         <label for="todoItem">Title</label><br>
-        <input type="text" id="todoItem" name="todoItem" value="{{ title }}" required>{% if error %}<label style="color: red; padding-left: 4px;"> * Please enter a valid title</label>{% endif %}<br><br>
+        <input type="text" id="todoItem" name="todoItem" value="{{ title }}" required>{% if view_model.errored %}<label style="color: red; padding-left: 4px;"> * Please enter a valid title</label>{% endif %}<br><br>
 
         
         <label for="Description">Description</label><br>

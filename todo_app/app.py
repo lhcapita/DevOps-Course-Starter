@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for
 
 from todo_app.flask_config import Config
 from todo_app.utils import simple_validation
+from todo_app.data.IndexViewModel import ViewModel
 
 from todo_app.data.trello_items import get_trello_lists, get_trello_items, get_trello_item, add_trello_item, save_trello_item, delete_trello_item
 
@@ -19,7 +20,9 @@ def index():
 
     items = sorted(items, key=lambda item: item.status)
 
-    return render_template("index.html", items=items, error=error)
+    view_model = ViewModel(items, error)
+
+    return render_template("index.html", view_model=view_model)
 
 
 @app.route("/addtodo", methods = ["POST"])
