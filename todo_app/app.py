@@ -17,10 +17,10 @@ def index():
     error = request.args.get("error") or False
 
     items = get_trello_items()
-
     items = sorted(items, key=lambda item: item.status)
+    trello_lists = get_trello_lists()
 
-    view_model = ViewModel(items, error)
+    view_model = ViewModel(items, trello_lists, error)
 
     return render_template("index.html", view_model=view_model)
 
