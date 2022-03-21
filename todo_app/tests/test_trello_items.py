@@ -8,7 +8,8 @@ class TestTodo:
     
         # Arrange
         items = get_trello_items()
-        view_model = ViewModel(items, True)
+        trello_lists = get_trello_lists()
+        view_model = ViewModel(items, trello_lists, True)
     
         # Act
         to_do_items = view_model.to_do_items
@@ -21,7 +22,8 @@ class TestTodo:
     
         # Arrange
         items = get_trello_items()
-        view_model = ViewModel(items, True)
+        trello_lists = get_trello_lists()
+        view_model = ViewModel(items, trello_lists, True)
     
         # Act
         doing_items = view_model.doing_items
@@ -34,7 +36,8 @@ class TestTodo:
     
         # Arrange
         items = get_trello_items()
-        view_model = ViewModel(items, True)
+        trello_lists = get_trello_lists()
+        view_model = ViewModel(items, trello_lists, True)
     
         # Act
         done_items = view_model.done_items
@@ -47,7 +50,8 @@ class TestTodo:
     
         # Arrange
         items = get_trello_items()
-        view_model = ViewModel(items, True)
+        trello_lists = get_trello_lists()
+        view_model = ViewModel(items, trello_lists, True)
     
         # Act
         not_started_items = view_model.not_started_items
@@ -65,7 +69,8 @@ class TestTodo:
     
         # Arrange
         items = get_trello_items()
-        view_model = ViewModel(items, True)
+        trello_lists = get_trello_lists()
+        view_model = ViewModel(items, trello_lists, True)
     
         # Act
         in_progress_items = view_model.in_progress_items
@@ -79,7 +84,8 @@ class TestTodo:
     
         # Arrange
         items = get_trello_items()
-        view_model = ViewModel(items, True)
+        trello_lists = get_trello_lists()
+        view_model = ViewModel(items, trello_lists, True)
     
         # Act
         peer_review_items = view_model.peer_review_items
@@ -93,7 +99,8 @@ class TestTodo:
     
         # Arrange
         items = get_trello_items()
-        view_model = ViewModel(items, True)
+        trello_lists = get_trello_lists()
+        view_model = ViewModel(items, trello_lists, True)
     
         # Act
         on_hold_items = view_model.on_hold_items
@@ -106,16 +113,39 @@ class TestTodo:
     
         # Arrange
         items = get_trello_items()
-        view_model = ViewModel(items, True)
+        trello_lists = get_trello_lists()
+        view_model = ViewModel(items, trello_lists, True)
     
         # Act
         completed_items = view_model.completed_items
     
         # Assert
         assert "Item 3" == completed_items[0].name
-
-#not started
-#in progress
-#peer review
-#on hold
-#completed
+    
+    @staticmethod
+    def test_trello_items_sorted():
+    
+        # Arrange
+        items = get_trello_items()
+        trello_lists = get_trello_lists()
+        view_model = ViewModel(items, trello_lists, True)
+    
+        # Act
+        sorted_items = view_model.sorted_items
+    
+        # Assert
+        assert "Item 9" == sorted_items["Not Started"][0].name
+        assert "Item 10" == sorted_items["Not Started"][1].name
+        assert "Testing Update" == sorted_items["Not Started"][2].name
+        assert "Test Can Still Add" == sorted_items["Not Started"][3].name
+        assert "This is a test" == sorted_items["Not Started"][4].name
+        assert "Item 1" == sorted_items["Not Started"][5].name
+        assert "Item 5" == sorted_items["In Progress"][0].name
+        assert "Item 7" == sorted_items["In Progress"][1].name
+        assert "Item 4" == sorted_items["Peer Review"][0].name
+        assert "Item 6" == sorted_items["Peer Review"][1].name
+        assert "Item 2" == sorted_items["On Hold"][0].name
+        assert "Item 3" == sorted_items["Completed"][0].name
+        assert "To Do Card" == sorted_items["To Do"][0].name
+        assert "Doing Card" == sorted_items["Doing"][0].name
+        assert "Done Card" == sorted_items["Done"][0].name
