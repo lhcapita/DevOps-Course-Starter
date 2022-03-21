@@ -57,12 +57,9 @@ class TestTodo:
         not_started_items = view_model.not_started_items
     
         # Assert
-        assert "Item 9" == not_started_items[0].name
-        assert "Item 10" == not_started_items[1].name
-        assert "Testing Update" == not_started_items[2].name
-        assert "Test Can Still Add" == not_started_items[3].name
-        assert "This is a test" == not_started_items[4].name
-        assert "Item 1" == not_started_items[5].name
+        assert "Item 1" == not_started_items[0].name
+        assert "Item 9" == not_started_items[1].name
+        assert "Item 10" == not_started_items[2].name
     
     @staticmethod
     def test_trello_items_in_progress():
@@ -134,12 +131,9 @@ class TestTodo:
         sorted_items = view_model.sorted_items
     
         # Assert
-        assert "Item 9" == sorted_items["Not Started"][0].name
-        assert "Item 10" == sorted_items["Not Started"][1].name
-        assert "Testing Update" == sorted_items["Not Started"][2].name
-        assert "Test Can Still Add" == sorted_items["Not Started"][3].name
-        assert "This is a test" == sorted_items["Not Started"][4].name
-        assert "Item 1" == sorted_items["Not Started"][5].name
+        assert "Item 1" == sorted_items["Not Started"][0].name
+        assert "Item 9" == sorted_items["Not Started"][1].name
+        assert "Item 10" == sorted_items["Not Started"][2].name
         assert "Item 5" == sorted_items["In Progress"][0].name
         assert "Item 7" == sorted_items["In Progress"][1].name
         assert "Item 4" == sorted_items["Peer Review"][0].name
