@@ -67,6 +67,8 @@ In Visual Studio Code, press ctrl + shift + p and select "Python: Configure Test
 
 Select the beaker icon in visual studio code, and click the play button in the test explorer section of the window.
 
+To run from the command line, open cmd / powershell in the devops_course_starter folder, and run "poetry run pytest"
+
 ## Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by running:
