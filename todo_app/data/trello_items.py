@@ -6,9 +6,9 @@ from todo_app.data.Item import Item
 
 def get_secrets():
     secrets = {
-        "board_id": os.getenv("TRELLO_BOARD_ID"),
-        "key": os.getenv("TRELLO_API_KEY"),
-        "token": os.getenv("TRELLO_API_TOKEN")
+        "board_id": os.environ.get("TRELLO_BOARD_ID"),
+        "key": os.environ.get("TRELLO_API_KEY"),
+        "token": os.environ.get("TRELLO_API_TOKEN")
     }
 
     return secrets
@@ -18,7 +18,7 @@ def get_trello_items():
     secrets = get_secrets()
 
     url = f"https://api.trello.com/1/boards/{secrets['board_id']}/lists/"
-
+    print(url)
     headers = {
         "Accept": "application/json"
     }
@@ -66,7 +66,7 @@ def get_trello_lists():
     secrets = get_secrets()
 
     url = f"https://api.trello.com/1/boards/{secrets['board_id']}/lists/"
-
+    print(url)
     headers = {
         "Accept": "application/json"
     }
