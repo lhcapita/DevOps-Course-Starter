@@ -1,5 +1,6 @@
 from todo_app.data.trello_items import get_trello_items, get_trello_lists
 from todo_app.data.IndexViewModel import ViewModel
+from todo_app.app import create_app
 
 class TestTodo:
 
