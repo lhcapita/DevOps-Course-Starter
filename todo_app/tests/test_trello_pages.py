@@ -3,7 +3,7 @@ import requests
 import os
 import pytest
 from dotenv import load_dotenv, find_dotenv
-from todo_app import app
+import todo_app.app as app
 
 @pytest.fixture
 def client():

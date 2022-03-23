@@ -1,13 +1,18 @@
 from todo_app.data.trello_items import get_trello_items, get_trello_lists
 from todo_app.data.IndexViewModel import ViewModel
-from todo_app.app import create_app
+from dotenv import load_dotenv, find_dotenv
+import todo_app.app as app
 
 class TestTodo:
 
     @staticmethod
     def test_trello_items_to_do():
     
-        # Arrange
+        # Arrange    
+        file_path = find_dotenv('../.env')
+        load_dotenv(file_path, override=True)
+
+        test_app = app.create_app()
         items = get_trello_items()
         trello_lists = get_trello_lists()
         view_model = ViewModel(items, trello_lists, True)
@@ -22,6 +27,10 @@ class TestTodo:
     def test_trello_items_doing():
     
         # Arrange
+        file_path = find_dotenv('../.env')
+        load_dotenv(file_path, override=True)
+
+        test_app = app.create_app()
         items = get_trello_items()
         trello_lists = get_trello_lists()
         view_model = ViewModel(items, trello_lists, True)
@@ -36,6 +45,10 @@ class TestTodo:
     def test_trello_items_done():
     
         # Arrange
+        file_path = find_dotenv('../.env')
+        load_dotenv(file_path, override=True)
+
+        test_app = app.create_app()
         items = get_trello_items()
         trello_lists = get_trello_lists()
         view_model = ViewModel(items, trello_lists, True)
@@ -50,6 +63,10 @@ class TestTodo:
     def test_trello_items_not_started():
     
         # Arrange
+        file_path = find_dotenv('../.env')
+        load_dotenv(file_path, override=True)
+
+        test_app = app.create_app()
         items = get_trello_items()
         trello_lists = get_trello_lists()
         view_model = ViewModel(items, trello_lists, True)
@@ -66,6 +83,10 @@ class TestTodo:
     def test_trello_items_in_progress():
     
         # Arrange
+        file_path = find_dotenv('../.env')
+        load_dotenv(file_path, override=True)
+
+        test_app = app.create_app()
         items = get_trello_items()
         trello_lists = get_trello_lists()
         view_model = ViewModel(items, trello_lists, True)
@@ -81,6 +102,10 @@ class TestTodo:
     def test_trello_items_peer_review():
     
         # Arrange
+        file_path = find_dotenv('../.env')
+        load_dotenv(file_path, override=True)
+
+        test_app = app.create_app()
         items = get_trello_items()
         trello_lists = get_trello_lists()
         view_model = ViewModel(items, trello_lists, True)
@@ -96,6 +121,10 @@ class TestTodo:
     def test_trello_items_on_hold():
     
         # Arrange
+        file_path = find_dotenv('../.env')
+        load_dotenv(file_path, override=True)
+
+        test_app = app.create_app()
         items = get_trello_items()
         trello_lists = get_trello_lists()
         view_model = ViewModel(items, trello_lists, True)
@@ -110,6 +139,10 @@ class TestTodo:
     def test_trello_items_completed():
     
         # Arrange
+        file_path = find_dotenv('../.env')
+        load_dotenv(file_path, override=True)
+
+        test_app = app.create_app()
         items = get_trello_items()
         trello_lists = get_trello_lists()
         view_model = ViewModel(items, trello_lists, True)
@@ -124,6 +157,10 @@ class TestTodo:
     def test_trello_items_sorted():
     
         # Arrange
+        file_path = find_dotenv('../.env')
+        load_dotenv(file_path, override=True)
+
+        test_app = app.create_app()
         items = get_trello_items()
         trello_lists = get_trello_lists()
         view_model = ViewModel(items, trello_lists, True)
