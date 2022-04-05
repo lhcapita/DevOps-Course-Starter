@@ -1,74 +1,42 @@
 from todo_app.data.trello_items import get_trello_items, get_trello_lists
 from todo_app.data.IndexViewModel import ViewModel
+from todo_app.data.Item import Item
 from dotenv import load_dotenv, find_dotenv
 import todo_app.app as app
 
+
+
+def generate_dummy_items():
+    items = [
+        Item('id', 'Item 1', 'Not Started', 'description', None),
+        Item('id2', 'Item 9', 'Not Started', 'description', None),
+        Item('id3', 'Item 10', 'Not Started', 'description', None),
+        Item('id4', 'Item 5', 'In Progress', 'description', None),
+        Item('id5', 'Item 7', 'In Progress', 'description', None),
+        Item('id6', 'Item 4', 'Peer Review', 'description', None),
+        Item('id7', 'Item 6', 'Peer Review', 'description', None),
+        Item('id8', 'Item 2', 'On Hold', 'description', None),
+        Item('id9', 'Item 3', 'Completed', 'description', None)
+    ]
+    return items
+def generate_dummy_lists():
+    trello_lists = [
+        {"id": "id", 'name': "Not Started"},
+        {"id": "id2", 'name': "In Progress"},
+        {"id": "id3", 'name': "Peer Review"},
+        {"id": "id4", 'name': "On Hold"},
+        {"id": "id5", 'name': "Completed"}
+    ]
+    return trello_lists
+
 class TestTodo:
-
-    @staticmethod
-    def test_trello_items_to_do():
-    
-        # Arrange    
-        file_path = find_dotenv('../.env')
-        load_dotenv(file_path, override=True)
-
-        test_app = app.create_app()
-        items = get_trello_items()
-        trello_lists = get_trello_lists()
-        view_model = ViewModel(items, trello_lists, True)
-    
-        # Act
-        to_do_items = view_model.to_do_items
-    
-        # Assert
-        assert "To Do Card" == to_do_items[0].name
-    
-    @staticmethod
-    def test_trello_items_doing():
-    
-        # Arrange
-        file_path = find_dotenv('../.env')
-        load_dotenv(file_path, override=True)
-
-        test_app = app.create_app()
-        items = get_trello_items()
-        trello_lists = get_trello_lists()
-        view_model = ViewModel(items, trello_lists, True)
-    
-        # Act
-        doing_items = view_model.doing_items
-    
-        # Assert
-        assert "Doing Card" == doing_items[0].name
-    
-    @staticmethod
-    def test_trello_items_done():
-    
-        # Arrange
-        file_path = find_dotenv('../.env')
-        load_dotenv(file_path, override=True)
-
-        test_app = app.create_app()
-        items = get_trello_items()
-        trello_lists = get_trello_lists()
-        view_model = ViewModel(items, trello_lists, True)
-    
-        # Act
-        done_items = view_model.done_items
-    
-        # Assert
-        assert "Done Card" == done_items[0].name
     
     @staticmethod
     def test_trello_items_not_started():
     
         # Arrange
-        file_path = find_dotenv('../.env')
-        load_dotenv(file_path, override=True)
-
-        test_app = app.create_app()
-        items = get_trello_items()
-        trello_lists = get_trello_lists()
+        items = generate_dummy_items()
+        trello_lists = generate_dummy_lists()
         view_model = ViewModel(items, trello_lists, True)
     
         # Act
@@ -83,12 +51,8 @@ class TestTodo:
     def test_trello_items_in_progress():
     
         # Arrange
-        file_path = find_dotenv('../.env')
-        load_dotenv(file_path, override=True)
-
-        test_app = app.create_app()
-        items = get_trello_items()
-        trello_lists = get_trello_lists()
+        items = generate_dummy_items()
+        trello_lists = generate_dummy_lists()
         view_model = ViewModel(items, trello_lists, True)
     
         # Act
@@ -102,12 +66,8 @@ class TestTodo:
     def test_trello_items_peer_review():
     
         # Arrange
-        file_path = find_dotenv('../.env')
-        load_dotenv(file_path, override=True)
-
-        test_app = app.create_app()
-        items = get_trello_items()
-        trello_lists = get_trello_lists()
+        items = generate_dummy_items()
+        trello_lists = generate_dummy_lists()
         view_model = ViewModel(items, trello_lists, True)
     
         # Act
@@ -121,12 +81,8 @@ class TestTodo:
     def test_trello_items_on_hold():
     
         # Arrange
-        file_path = find_dotenv('../.env')
-        load_dotenv(file_path, override=True)
-
-        test_app = app.create_app()
-        items = get_trello_items()
-        trello_lists = get_trello_lists()
+        items = generate_dummy_items()
+        trello_lists = generate_dummy_lists()
         view_model = ViewModel(items, trello_lists, True)
     
         # Act
@@ -139,12 +95,8 @@ class TestTodo:
     def test_trello_items_completed():
     
         # Arrange
-        file_path = find_dotenv('../.env')
-        load_dotenv(file_path, override=True)
-
-        test_app = app.create_app()
-        items = get_trello_items()
-        trello_lists = get_trello_lists()
+        items = generate_dummy_items()
+        trello_lists = generate_dummy_lists()
         view_model = ViewModel(items, trello_lists, True)
     
         # Act
@@ -157,12 +109,8 @@ class TestTodo:
     def test_trello_items_sorted():
     
         # Arrange
-        file_path = find_dotenv('../.env')
-        load_dotenv(file_path, override=True)
-
-        test_app = app.create_app()
-        items = get_trello_items()
-        trello_lists = get_trello_lists()
+        items = generate_dummy_items()
+        trello_lists = generate_dummy_lists()
         view_model = ViewModel(items, trello_lists, True)
     
         # Act
@@ -178,6 +126,3 @@ class TestTodo:
         assert "Item 6" == sorted_items["Peer Review"][1].name
         assert "Item 2" == sorted_items["On Hold"][0].name
         assert "Item 3" == sorted_items["Completed"][0].name
-        assert "To Do Card" == sorted_items["To Do"][0].name
-        assert "Doing Card" == sorted_items["Doing"][0].name
-        assert "Done Card" == sorted_items["Done"][0].name

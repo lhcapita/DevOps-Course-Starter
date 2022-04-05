@@ -6,10 +6,10 @@ class ViewModel:
         self._items = items
         self._errored = errored
         self._sorted_items = {}
-        self._lists = lists
-        self.sort_items()
+        self._lists = lists        
+        self._sort_items()
 
-    def sort_items(self):
+    def _sort_items(self):
         trello_lists = self.trello_lists
 
         for trello_list in trello_lists:
@@ -22,6 +22,7 @@ class ViewModel:
 
     @property
     def sorted_items(self):
+        self._sort_items()
         return self._sorted_items
 
     @property
@@ -38,32 +39,32 @@ class ViewModel:
 
     @property 
     def to_do_items(self):
-        return self._sorted_items["To Do"]
+        return self.sorted_items["To Do"]
         
     @property 
     def doing_items(self):
-        return self._sorted_items["Doing"]
+        return self.sorted_items["Doing"]
         
     @property 
     def done_items(self):
-        return self._sorted_items["Done"]
+        return self.sorted_items["Done"]
         
     @property 
     def not_started_items(self):
-        return self._sorted_items["Not Started"]
+        return self.sorted_items["Not Started"]
         
     @property 
     def in_progress_items(self):
-        return self._sorted_items["In Progress"]
+        return self.sorted_items["In Progress"]
         
     @property 
     def peer_review_items(self):
-        return self._sorted_items["Peer Review"]
+        return self.sorted_items["Peer Review"]
         
     @property 
     def on_hold_items(self):
-        return self._sorted_items["On Hold"]
+        return self.sorted_items["On Hold"]
         
     @property 
     def completed_items(self):
-        return self._sorted_items["Completed"]
+        return self.sorted_items["Completed"]

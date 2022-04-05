@@ -45,24 +45,6 @@ Update the Trello secrets in the .env.template file and or the .env file.
 The lists used in Trello for testing were: "Not Started", "In Progress", "Peer Review", "On Hold", "Completed".
 
 ## Testing with PyTest
-The lists used in Trello for testing were: "Not Started", "In Progress", "Peer Review", "On Hold", "Completed", "To Do", "Doing", "Done" - in that order left to right on trello.
-
-For Not Started, include 3 cards called "Item 1", "Item 9" and "Item 10" (in that order)
-
-For "In Progress" create 2 cards called "Item 5" and "Item 7" (In that order)
-
-For "Peer Review" create 2 cards called "Item 4" and "Item 6" (In that order)
-
-For "On Hold" create 1 card called "Item 2"
-
-For "Completed" create 1 card called "Item 3"
-
-for "To Do" create 1 card called "To Do Card"
-
-for "Doing" create 1 card called "Doing Card"
-
-For "Done" create 1 card called "Done Card"
-
 In Visual Studio Code, press ctrl + shift + p and select "Python: Configure Tests", select "pytest" and then "todo_app"
 
 Select the beaker icon in visual studio code, and click the play button in the test explorer section of the window.
