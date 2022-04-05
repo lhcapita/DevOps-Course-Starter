@@ -18,7 +18,6 @@ def get_trello_items():
     secrets = get_secrets()
 
     url = f"https://api.trello.com/1/boards/{secrets['board_id']}/lists/"
-    print(url)
     headers = {
         "Accept": "application/json"
     }
@@ -66,7 +65,6 @@ def get_trello_lists():
     secrets = get_secrets()
 
     url = f"https://api.trello.com/1/boards/{secrets['board_id']}/lists/"
-    print(url)
     headers = {
         "Accept": "application/json"
     }
@@ -135,12 +133,17 @@ def save_trello_item(item):
         "Accept": "application/json"
     }
 
+    due = ""
+
+    if item.due != 'None':
+        due = item.due
+
     data = {
         "id": item.id,
         "idList": get_trello_list_id(item.status),
         "name": item.name,
         "desc": item.desc,
-        "due": item.due
+        "due": due
     }
 
     query = {
