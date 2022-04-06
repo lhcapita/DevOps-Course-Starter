@@ -36,18 +36,6 @@ class ViewModel:
     @property
     def errored(self):
         return self._errored
-
-    @property 
-    def to_do_items(self):
-        return self.sorted_items["To Do"]
-        
-    @property 
-    def doing_items(self):
-        return self.sorted_items["Doing"]
-        
-    @property 
-    def done_items(self):
-        return self.sorted_items["Done"]
         
     @property 
     def not_started_items(self):
