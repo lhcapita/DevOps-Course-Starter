@@ -52,7 +52,6 @@
       version: exercise-3
 
   - name: install poetry dependencies for project
-
     ansible.builtin.command:
       cmd: /etc/poetry/bin/poetry install
       chdir: /opt/todoapp/
