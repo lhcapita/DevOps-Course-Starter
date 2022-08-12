@@ -9,7 +9,11 @@
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
+
+      
+
+      {% for status in view_model.trello_lists %}
+      <h2>{{status["name"]}} Items</h2>
 
       
       <table class="table">
@@ -25,7 +29,9 @@
           </thead>
           <tbody>
             
+            {% for items in view_model.sorted_items.values() %}
             {% for item in items %}
+            {% if item.status == status["name"] %}
             <tr>
               <td>{{item["name"]}}</td>
               <td>{{item["status"]}}</td>
@@ -34,16 +40,20 @@
               <td><a href="{{ url_for('UpdateToDo', id=item['id'] ) }}">Update</a></td>
               <td><a href="{{ url_for('DeleteToDo', id=item['id'] ) }}">Delete</a></td>
             </tr>
+            {% endif %}
+            {% endfor %}
             {% endfor %}
           </tbody>
         </table>
+
+      {% endfor %}
 
   <div class="row">
     <div class="col-md-12">
       <h2>Add To Do Item</h2>
       <form method="POST" action="{{ url_for('AddToDo') }}">
         <label for="todoItem">Title</label><br>
-        <input type="text" id="todoItem" name="todoItem" value="{{ title }}" required>{% if error %}<label style="color: red; padding-left: 4px;"> * Please enter a valid title</label>{% endif %}<br><br>
+        <input type="text" id="todoItem" name="todoItem" value="{{ title }}" required>{% if view_model.errored %}<label style="color: red; padding-left: 4px;"> * Please enter a valid title</label>{% endif %}<br><br>
 
         
         <label for="Description">Description</label><br>
