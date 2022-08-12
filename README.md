@@ -52,11 +52,23 @@ Select the beaker icon in visual studio code, and click the play button in the t
 To run from the command line, open cmd / powershell in the devops_course_starter folder, and run "poetry run pytest"
 
 ## Running the App
+## Outside of Docker
 
 Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by running:
 ```bash
 $ poetry run flask run
 ```
+
+## With Docker
+to build either dev or production run:
+
+docker build --target development --tag todo-app:dev .
+docker build --target production --tag todo-app:prod .
+
+to run the app use:
+docker run --env-file ./.env -p 5100:80 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app todo-app:dev
+docker run --env-file ./.env -p 5100:80 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app todo-app:prod
+
 
 You should see output similar to the following:
 ```bash

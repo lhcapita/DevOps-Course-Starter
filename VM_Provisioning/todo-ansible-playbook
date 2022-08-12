@@ -1,0 +1,82 @@
+- name: Install To Do App on new web server
+  hosts: webservers
+  remote_user: ec2-user
+  vars_prompt:
+
+    - name: trello_board_id
+      prompt: What is the board id?
+      private: no
+
+    - name: trello_api_key
+      prompt: What is the api key?
+      private: no
+    
+    - name: trello_api_token
+      prompt: What is the api token?
+      private: no
+
+  tasks:
+  - name: install git and python
+    ansible.builtin.yum:
+      name: 
+        - git
+        - python3
+      state: present
+    become: yes
+
+  - name: Copy poetry install shell
+    ansible.builtin.copy:
+        src: poetry-install.sh
+        dest: poetry-install.sh
+        owner: ec2-user
+        group: ec2-user
+        mode: u+rwx,g+rwx,o+rwx
+
+  - name: install poetry
+    ansible.builtin.command:
+      cmd: /home/ec2-user/poetry-install.sh
+      chdir: /opt/todoapp/
+    become: yes
+
+  - name: create todo_app folder
+    ansible.builtin.file:
+      path: /opt/todoapp
+      state: directory
+      mode: u+rwx,g+rwx,o+rwx
+    become: yes
+
+  - name: Git checkout
+    ansible.builtin.git:
+      repo: 'https://github.com/lhcapita/DevOps-Course-Starter.git'
+      dest: /opt/todoapp
+      version: exercise-3
+
+  - name: install poetry dependencies for project
+    ansible.builtin.command:
+      cmd: /etc/poetry/bin/poetry install
+      chdir: /opt/todoapp/
+    become: yes
+
+  - name: create .env file
+    ansible.builtin.template:
+      src: .env.j2
+      dest: /opt/todoapp/.env
+      owner: ec2-user
+      group: ec2-user
+      mode: u+rwx,g+rwx,o+rwx
+
+  - name: Copy todoapp service across
+    ansible.builtin.copy:
+        src: todoapp.service
+        dest: /etc/systemd/system/todoapp.service
+        owner: ec2-user
+        group: ec2-user
+        mode: u+rwx,g+rwx,o+rwx
+    become: yes
+
+  - name: Start the application
+    ansible.builtin.systemd:
+        name: todoapp.service
+        state: started
+        daemon_reload: true
+    become: yes
