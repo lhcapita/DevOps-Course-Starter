@@ -10,14 +10,14 @@ COPY pyproject.toml poetry.lock ./
 COPY . .
 RUN poetry install
 
-EXPOSE 5000
+EXPOSE 5100
 
 COPY /todo_app/ ./todo_app/
 
 
 FROM base as production
-ENTRYPOINT [ "poetry", "run", "gunicorn", "--workers=2", "--bind", "0.0.0.0:5000", "todo_app.app:create_app()" ]
+ENTRYPOINT [ "poetry", "run", "gunicorn", "--workers=2", "--bind", "0.0.0.0:80", "todo_app.app:create_app()" ]
 
 
 FROM base as development
-ENTRYPOINT [ "poetry", "run", "flask", "run", "--host", "0.0.0.0"]
+ENTRYPOINT [ "poetry", "run", "flask", "run", "--host", "0.0.0.0", "--port", "80"]
