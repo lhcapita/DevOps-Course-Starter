@@ -2,7 +2,7 @@ name: Continuous Integration
 on: 
     push:
         paths-ignore:
-            - 'docs/**'
+            - 'README.md'
     pull_request:
         # Sequence of patterns matched against refs/heads
         branches:    
