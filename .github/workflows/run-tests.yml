@@ -8,4 +8,3 @@ jobs:
         steps:
         - uses: actions/checkout@v2
         - run: docker docker build --target test --tag todo-app:test .
-        - run: docker run todo-app:test
