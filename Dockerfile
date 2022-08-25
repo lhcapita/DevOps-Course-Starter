@@ -15,9 +15,16 @@ EXPOSE 5100
 COPY /todo_app/ ./todo_app/
 
 
+# production stage
 FROM base as production
 ENTRYPOINT [ "poetry", "run", "gunicorn", "--workers=2", "--bind", "0.0.0.0:80", "todo_app.app:create_app()" ]
 
 
+# dev stage
 FROM base as development
 ENTRYPOINT [ "poetry", "run", "flask", "run", "--host", "0.0.0.0", "--port", "80"]
+
+
+# testing stage
+FROM base as test
+ENTRYPOINT ["poetry", "run", "pytest"]
