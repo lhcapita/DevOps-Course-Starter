@@ -9,10 +9,18 @@ on:
             - main  
 
 jobs:
-    build:
-        name: Build and test
-        runs-on: ubuntu-latest
-        steps:
-        - uses: actions/checkout@v2
-        - run: docker build --target test --tag todo-app:test .
-        - run: docker run todo-app:test
+    job-one:
+        name: Job One
+        build:
+            name: Build and test
+            runs-on: ubuntu-latest
+            steps:
+            - uses: actions/checkout@v2
+            - run: docker build --target test --tag todo-app:test .
+            - run: docker run todo-app:test
+    job-two:
+        name: Job Two 
+        build:
+            steps:
+            - run: echo "Publishing!"
+        
