@@ -1,5 +1,12 @@
 name: Continuous Integration
-on: [push]
+on: 
+    push:
+        paths-ignore:
+            - 'docs/**'
+    pull_request:
+        # Sequence of patterns matched against refs/heads
+        branches:    
+            - main  
 
 jobs:
     build:
