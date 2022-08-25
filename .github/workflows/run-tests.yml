@@ -21,6 +21,9 @@ jobs:
     job-two:
         name: Job Two 
         build:
+            name: Build and test
+            runs-on: ubuntu-latest
             steps:
+            - uses: actions/checkout@v2
             - run: echo "Publishing!"
         
