@@ -51,6 +51,10 @@ Select the beaker icon in visual studio code, and click the play button in the t
 
 To run from the command line, open cmd / powershell in the devops_course_starter folder, and run "poetry run pytest"
 
+Tests can also be run in docker by using the following commands:
+    docker build --target test --tag todo-app:test .
+    docker run todo-app:test 
+
 ## Running the App
 ## Outside of Docker
 
