@@ -46,9 +46,16 @@ jobs:
         #    heroku_email: ${{secrets.HEROKU_EMAIL}}
         #    heroku_api_key: ${{secrets.HEROKU_API_KEY}}
         #    heroku_app_name: "mod-8-todo-app"
-        - uses: behe/heroku-build@v1.1
+        - name: Build, Push and Deploy to Heroku
+          id: heroku
+          uses: Techmmunity/docker-heroku-deploy@v1.0.0 # use the latest version of the action
           with:
-            app-name: "mod-8-todo-app"
-            api-key: "${{secrets.HEROKU_API_KEY}}"
+            email: ${{ secrets.HEROKU_EMAIL }} # your heroku email
+            api_key: ${{ secrets.HEROKU_API_KEY }} # your  heroku api key
+            app_name: "mod-8-todo-app" # you aplication name
+        #- uses: behe/heroku-build@v1.1
+        #  with:
+        #    app-name: "mod-8-todo-app"
+        #    api-key: "${{secrets.HEROKU_API_KEY}}"
         
         
