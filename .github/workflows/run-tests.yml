@@ -53,6 +53,7 @@ jobs:
             email: ${{ secrets.HEROKU_EMAIL }} # your heroku email
             api_key: ${{ secrets.HEROKU_API_KEY }} # your  heroku api key
             app_name: "mod-8-todo-app" # you aplication name
+            options: "--target production" # OPTIONAL: Docker Build Options
         #- uses: behe/heroku-build@v1.1
         #  with:
         #    app-name: "mod-8-todo-app"
