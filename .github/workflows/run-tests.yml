@@ -41,9 +41,13 @@ jobs:
         #- run: docker build --target production --tag lhcapita1/cc-todo-app .
         #- run: docker push lhcapita1/cc-todo-app
         #- run: docker tag lhcapita1/cc-todo-app registry.heroku.com/mod-8-todo-app/web
-        - uses: CDNievas/heroku-action@v1.0 # This is the action
+        #- uses: CDNievas/heroku-action@v1.0 # This is the action
+        #  with:
+        #    heroku_email: ${{secrets.HEROKU_EMAIL}}
+        #    heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        #    heroku_app_name: "mod-8-todo-app"
+        - uses: behe/heroku-build@v1.1
           with:
-            heroku_email: ${{secrets.HEROKU_EMAIL}}
-            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-            heroku_app_name: "mod-8-todo-app"
+            app-name: "mod-8-todo-app"
+            api-key: "${{secrets.HEROKU_API_KEY}}"
         
