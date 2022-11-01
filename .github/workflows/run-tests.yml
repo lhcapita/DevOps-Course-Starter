@@ -36,7 +36,8 @@ jobs:
           uses: docker/build-push-action@v3
           with:
             push: true
-            tags: lhcapita1/cc-todo-app
+            tags: lhcapita1/todo-app
+            target: production
         #- run: docker build --target production --tag lhcapita1/cc-todo-app .
         #- run: docker push lhcapita1/cc-todo-app
         - uses: CDNievas/heroku-action@v1.0 # This is the action
