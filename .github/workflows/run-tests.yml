@@ -33,7 +33,7 @@ jobs:
         - run: docker build --target production --tag lhcapita1/cc-todo-app .
         - run: docker push lhcapita1/cc-todo-app
         - uses: CDNievas/heroku-action@v1.0 # This is the action
-        with:
+          with:
             heroku_email: ${{secrets.HEROKU_EMAIL}}
             heroku_api_key: ${{secrets.HEROKU_API_KEY}}
             heroku_app_name: "mod-8-todo-app"
