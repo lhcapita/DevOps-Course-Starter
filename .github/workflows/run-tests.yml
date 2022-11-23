@@ -39,7 +39,7 @@ jobs:
             tags: lhcapita1/todo-app
             target: production
 
-        - run: "curl -dH -X POST ${{ AZURE_WEBHOOK_URL }}"
+        - run: "curl -dH -X POST ${{ secrets.AZURE_WEBHOOK_URL }}"
         #- name: Build, Push and Deploy to Heroku
         #  id: heroku
         #  uses: Techmmunity/docker-heroku-deploy@v1.0.0 # use the latest version of the action
