@@ -20,7 +20,7 @@ jobs:
         name: Job Two
         runs-on: ubuntu-latest
         needs: job-one 
-        #if: ${{ github.event_name == 'pull_request' && github.ref == 'refs/heads/main'}}
+        if: ${{ github.event_name == 'pull_request' && github.ref == 'refs/heads/main'}}
         steps:
         - uses: actions/checkout@v2
         - run: echo "Publishing!"
@@ -38,25 +38,6 @@ jobs:
             push: true
             tags: lhcapita1/todo-app
             target: production
-        #- run: docker build --target production --tag lhcapita1/cc-todo-app .
-        #- run: docker push lhcapita1/cc-todo-app
-        #- run: docker tag lhcapita1/cc-todo-app registry.heroku.com/mod-8-todo-app/web
-        #- uses: CDNievas/heroku-action@v1.0 # This is the action
-        #  with:
-        #    heroku_email: ${{secrets.HEROKU_EMAIL}}
-        #    heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-        #    heroku_app_name: "mod-8-todo-app"
-        - name: Build, Push and Deploy to Heroku
-          id: heroku
-          uses: Techmmunity/docker-heroku-deploy@v1.0.0 # use the latest version of the action
-          with:
-            email: ${{ secrets.HEROKU_EMAIL }} # your heroku email
-            api_key: ${{ secrets.HEROKU_API_KEY }} # your  heroku api key
-            app_name: "mod-8-todo-app" # you aplication name
-            options: "--target production" # OPTIONAL: Docker Build Options
-        #- uses: behe/heroku-build@v1.1
-        #  with:
-        #    app-name: "mod-8-todo-app"
-        #    api-key: "${{secrets.HEROKU_API_KEY}}"
-        
+
+        - run: "curl -dH -X POST ${{ secrets.AZURE_WEBHOOK_URL }}"
         
