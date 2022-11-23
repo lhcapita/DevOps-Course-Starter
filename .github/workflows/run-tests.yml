@@ -20,7 +20,7 @@ jobs:
         name: Job Two
         runs-on: ubuntu-latest
         needs: job-one 
-        #if: ${{ github.event_name == 'pull_request' && github.ref == 'refs/heads/main'}}
+        if: ${{ github.event_name == 'pull_request' && github.ref == 'refs/heads/main'}}
         steps:
         - uses: actions/checkout@v2
         - run: echo "Publishing!"
@@ -40,13 +40,4 @@ jobs:
             target: production
 
         - run: "curl -dH -X POST ${{ secrets.AZURE_WEBHOOK_URL }}"
-        #- name: Build, Push and Deploy to Heroku
-        #  id: heroku
-        #  uses: Techmmunity/docker-heroku-deploy@v1.0.0 # use the latest version of the action
-        #  with:
-        #    email: ${{ secrets.HEROKU_EMAIL }} # your heroku email
-        #    api_key: ${{ secrets.HEROKU_API_KEY }} # your  heroku api key
-        #    app_name: "mod-8-todo-app" # you aplication name
-        #    options: "--target production" # OPTIONAL: Docker Build Options
-        #
         

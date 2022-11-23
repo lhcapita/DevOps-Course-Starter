@@ -73,6 +73,9 @@ to run the app use:
 docker run --env-file ./.env -p 5100:80 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app todo-app:dev
 docker run --env-file ./.env -p 5100:80 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app todo-app:prod
 
+## Azure
+The docker container will be automatically updated on the azure site, as the webhook url is used in the github actions.
+
 
 You should see output similar to the following:
 ```bash
