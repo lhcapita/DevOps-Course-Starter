@@ -10,10 +10,13 @@ class ViewModel:
         self._sort_items()
 
     def _sort_items(self):
-        trello_lists = self.trello_lists
+        lists = self.lists
+        print(lists)
+        print(self.items)
 
-        for trello_list in trello_lists:
-            list_name = trello_list["name"]
+        for l in lists:
+            print(l)
+            list_name = l
             self._sorted_items[list_name] = []
 
         #sort items into correct list
@@ -30,7 +33,7 @@ class ViewModel:
         return self._items
 
     @property
-    def trello_lists(self):
+    def lists(self):
         return self._lists
 
     @property

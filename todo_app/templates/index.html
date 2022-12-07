@@ -12,8 +12,8 @@
 
       
 
-      {% for status in view_model.trello_lists %}
-      <h2>{{status["name"]}} Items</h2>
+      {% for status in view_model.lists %}
+      <h2>{{status}} Items</h2>
 
       
       <table class="table">
@@ -31,7 +31,7 @@
             
             {% for items in view_model.sorted_items.values() %}
             {% for item in items %}
-            {% if item.status == status["name"] %}
+            {% if item.status == status %}
             <tr>
               <td>{{item["name"]}}</td>
               <td>{{item["status"]}}</td>
