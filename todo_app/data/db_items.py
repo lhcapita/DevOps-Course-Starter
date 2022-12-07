@@ -10,27 +10,13 @@ class DbHandler:
     def __init__(self):
         connid = os.environ.get("DB_CONNECTION_STRING")
         db_name = os.environ.get("DB_NAME_ITEMS")
-        db_name_lists = os.environ.get("DB_NAME_LISTS")
 
         self.client = pymongo.MongoClient(connid)
         self.db_items = self.client[db_name]
-        self.db_lists = self.client[db_name_lists]
         self.collection = self.db_items.items_collection
-        self.collection_lists = self.db_lists.lists_collection
     
     def GetLists(self):
         return ["Not Started", "In Progress", "Peer Review", "On Hold", "Completed"]
-
-    def AddLists(self):
-        print("Adding Lists!")
-        posts = self.db_lists.posts
-        post = [{"Name": "Not Started"},
-                    {"Name": "In Progress"},
-                    {"Name": "Peer Review"},
-                    {"Name": "On Hold"},
-                    {"Name": "Completed"}]
-        posts.insert_many(post)
-        return None
 
     def GetItems(self):
         posts = self.db_items.posts
