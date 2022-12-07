@@ -4,6 +4,8 @@ import json
 
 from todo_app.data.Item import Item
 
+import pymongo
+
 def get_secrets():
     secrets = {
         "board_id": os.environ.get("TRELLO_BOARD_ID"),

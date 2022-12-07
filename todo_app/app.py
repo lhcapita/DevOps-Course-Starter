@@ -3,9 +3,10 @@ from flask import Flask, request, render_template, redirect, url_for
 from todo_app.utils import simple_validation
 from todo_app.data.IndexViewModel import ViewModel
 
+from todo_app.data.db_items import DbHandler
+
 from todo_app.data.trello_items import get_trello_lists, get_trello_items, get_trello_item, add_trello_item, save_trello_item, delete_trello_item
 
-from datetime import datetime
 
 def create_app():
     app = Flask(__name__)
@@ -16,9 +17,13 @@ def create_app():
     def index():
         error = request.args.get("error") or False
 
-        items = get_trello_items()
+        db = DbHandler()
+        items = db.GetItems()
+
         items = sorted(items, key=lambda item: item.status)
+        
         trello_lists = get_trello_lists()
+        print(trello_lists)
 
         view_model = ViewModel(items, trello_lists, error)
 
