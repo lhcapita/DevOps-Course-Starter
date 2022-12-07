@@ -42,7 +42,8 @@ def create_app():
         if(error):
             return redirect(url_for("index", error=error))
         else:
-            add_trello_item(title, desc, due)
+            db = DbHandler()
+            db.AddItem(title, desc, due)
 
         return redirect(url_for("index"))
 
