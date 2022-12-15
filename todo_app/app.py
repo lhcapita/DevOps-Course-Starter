@@ -5,8 +5,6 @@ from todo_app.data.IndexViewModel import ViewModel
 
 from todo_app.data.db_items import DbHandler
 
-from todo_app.data.trello_items import get_trello_lists, get_trello_items, get_trello_item, add_trello_item, save_trello_item, delete_trello_item
-
 
 def create_app():
     app = Flask(__name__)
@@ -23,7 +21,6 @@ def create_app():
         items = sorted(items, key=lambda item: item.status)
         
         lists = db.GetLists()
-        print(lists)
 
 
         view_model = ViewModel(items, lists, error)
@@ -49,17 +46,19 @@ def create_app():
 
     @app.route("/updateToDo/<id>", methods=["GET"])
     def UpdateToDo(id):
-        item = get_trello_item(id)
-        trello_lists = get_trello_lists()
+        db = DbHandler()
+        item = db.GetItem(id)
+        lists = db.GetLists()
         due = None
         if(item.due != None):
             due = item.due.strftime("%m/%d/%Y")
-        return render_template("updateToDo.html", item=item, statuses = trello_lists, due=due)
+        return render_template("updateToDo.html", item=item, statuses = lists, due=due)
 
 
     @app.route("/updateToDo/<id>", methods=["POST"])
     def UpdateToDoPost(id):
-        item = get_trello_item(id)
+        db = DbHandler()
+        item = db.GetItem(id)
         title = request.form.get("title")
         status = request.form.get("status")
         desc = request.form.get("desc")
@@ -68,21 +67,22 @@ def create_app():
         error = simple_validation(title, status)
 
         if error:
-            trello_lists = get_trello_lists()
-            return render_template("updateToDo.html", item=item, statuses = trello_lists, due=item.due.strftime("%m/%d/%Y"))
+            #trello_lists = get_trello_lists()
+            lists = db.GetLists()
+            return render_template("updateToDo.html", item=item, statuses = lists, due=item.due.strftime("%m/%d/%Y"))
 
         item.name = title
         item.status = status
         item.desc = desc
         item.due = due
-        save_trello_item(item)
+        db.UpdateItem(item)
         return redirect(url_for("index"))
 
 
     @app.route("/deleteToDo/<id>")
     def DeleteToDo(id):
-
-        delete_trello_item(id)
+        db = DbHandler()
+        db.DeleteItem(id)
 
         return redirect(url_for("index"))
 

@@ -1,6 +1,7 @@
 import pymongo
 import os
 from todo_app.data.Item import Item
+from bson.objectid import ObjectId
 
 #from todo_app.data.Item import Item
 
@@ -29,7 +30,9 @@ class DbHandler:
 
     def GetItem(self, id):
         posts = self.db_items.posts
-        return posts.find_one({"_id": id})
+        item_row = posts.find_one({"_id": ObjectId(id)})
+        item = Item.from_db_row(item_row)
+        return item
 
     def AddItem(self, title, desc, due):
         post = {"name": title,
@@ -42,7 +45,7 @@ class DbHandler:
         return None
 
     def UpdateItem(self, item:Item):
-        obj = {"_id": item.id}
+        obj = {"_id": ObjectId(item.id)}
         new_vals = { "$set": { "name": item.name,
                                 "desc":  item.desc,
                                 "status": item.status,
@@ -52,7 +55,7 @@ class DbHandler:
         return None
 
     def DeleteItem(self, id):
-        query = {"_id": id}
+        query = {"_id": ObjectId(id)}
         posts = self.db_items.posts
         posts.delete_one(query)
         return None

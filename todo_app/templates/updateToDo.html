@@ -28,7 +28,7 @@
                             <td>
                                 <select class="form-control" id="status" name="status">
                                     {% for status in statuses %}
-                                    <option {% if item["status"] == status["name"] %} selected{%endif%}>{{status["name"]}}</option>
+                                    <option {% if item["status"] == status %} selected{%endif%}>{{status}}</option>
                                     {% endfor %}
                                 </select>
                             </td>
