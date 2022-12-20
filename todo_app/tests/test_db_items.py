@@ -1,8 +1,5 @@
-from todo_app.data.trello_items import get_trello_items, get_trello_lists
 from todo_app.data.IndexViewModel import ViewModel
 from todo_app.data.Item import Item
-from dotenv import load_dotenv, find_dotenv
-import todo_app.app as app
 
 
 
@@ -20,24 +17,24 @@ def generate_dummy_items():
     ]
     return items
 def generate_dummy_lists():
-    trello_lists = [
-        {"id": "id", 'name': "Not Started"},
-        {"id": "id2", 'name': "In Progress"},
-        {"id": "id3", 'name': "Peer Review"},
-        {"id": "id4", 'name': "On Hold"},
-        {"id": "id5", 'name': "Completed"}
+    db_lists = [
+        "Not Started",
+         "In Progress",
+         "Peer Review",
+         "On Hold",
+         "Completed"
     ]
-    return trello_lists
+    return db_lists
 
 class TestTodo:
     
     @staticmethod
-    def test_trello_items_not_started():
+    def test_db_items_not_started():
     
         # Arrange
         items = generate_dummy_items()
-        trello_lists = generate_dummy_lists()
-        view_model = ViewModel(items, trello_lists, True)
+        db_lists = generate_dummy_lists()
+        view_model = ViewModel(items, db_lists, True)
     
         # Act
         not_started_items = view_model.not_started_items
@@ -48,12 +45,12 @@ class TestTodo:
         assert "Item 10" == not_started_items[2].name
     
     @staticmethod
-    def test_trello_items_in_progress():
+    def test_db_items_in_progress():
     
         # Arrange
         items = generate_dummy_items()
-        trello_lists = generate_dummy_lists()
-        view_model = ViewModel(items, trello_lists, True)
+        db_lists = generate_dummy_lists()
+        view_model = ViewModel(items, db_lists, True)
     
         # Act
         in_progress_items = view_model.in_progress_items
@@ -63,12 +60,12 @@ class TestTodo:
         assert "Item 7" == in_progress_items[1].name
     
     @staticmethod
-    def test_trello_items_peer_review():
+    def test_db_items_peer_review():
     
         # Arrange
         items = generate_dummy_items()
-        trello_lists = generate_dummy_lists()
-        view_model = ViewModel(items, trello_lists, True)
+        db_lists = generate_dummy_lists()
+        view_model = ViewModel(items, db_lists, True)
     
         # Act
         peer_review_items = view_model.peer_review_items
@@ -78,12 +75,12 @@ class TestTodo:
         assert "Item 6" == peer_review_items[1].name
     
     @staticmethod
-    def test_trello_items_on_hold():
+    def test_db_items_on_hold():
     
         # Arrange
         items = generate_dummy_items()
-        trello_lists = generate_dummy_lists()
-        view_model = ViewModel(items, trello_lists, True)
+        db_lists = generate_dummy_lists()
+        view_model = ViewModel(items, db_lists, True)
     
         # Act
         on_hold_items = view_model.on_hold_items
@@ -92,12 +89,12 @@ class TestTodo:
         assert "Item 2" == on_hold_items[0].name
     
     @staticmethod
-    def test_trello_items_completed():
+    def test_db_items_completed():
     
         # Arrange
         items = generate_dummy_items()
-        trello_lists = generate_dummy_lists()
-        view_model = ViewModel(items, trello_lists, True)
+        db_lists = generate_dummy_lists()
+        view_model = ViewModel(items, db_lists, True)
     
         # Act
         completed_items = view_model.completed_items
@@ -106,12 +103,12 @@ class TestTodo:
         assert "Item 3" == completed_items[0].name
     
     @staticmethod
-    def test_trello_items_sorted():
+    def test_db_items_sorted():
     
         # Arrange
         items = generate_dummy_items()
-        trello_lists = generate_dummy_lists()
-        view_model = ViewModel(items, trello_lists, True)
+        db_lists = generate_dummy_lists()
+        view_model = ViewModel(items, db_lists, True)
     
         # Act
         sorted_items = view_model.sorted_items

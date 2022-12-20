@@ -1,5 +1,4 @@
 from todo_app.data.Item import Item
-from todo_app.data.trello_items import get_trello_lists
 
 class ViewModel:
     def __init__(self, items, lists, errored):
@@ -10,10 +9,10 @@ class ViewModel:
         self._sort_items()
 
     def _sort_items(self):
-        trello_lists = self.trello_lists
+        lists = self.lists
 
-        for trello_list in trello_lists:
-            list_name = trello_list["name"]
+        for l in lists:
+            list_name = l
             self._sorted_items[list_name] = []
 
         #sort items into correct list
@@ -30,7 +29,7 @@ class ViewModel:
         return self._items
 
     @property
-    def trello_lists(self):
+    def lists(self):
         return self._lists
 
     @property
