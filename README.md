@@ -32,6 +32,9 @@ $ cp .env.template .env  # (first time only)
 
 The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
 
+## GitHub OAuth Secrets
+Update the .env file to use the github client id and github client secret for the oauth flow.
+
 ## Trello Secrets
 Create a trello account at https://trello.com 
 
