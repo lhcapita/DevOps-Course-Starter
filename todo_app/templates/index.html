@@ -23,8 +23,10 @@
               <th scope="col">Status</th>
               <th scope="col">Description</th>
               <th scope="col">Due Date</th>
+              {% if view_model.user_role == "writer" %}
               <th scope="col">Update</th>
               <th scope="col">Delete</th>
+              {% endif %}
             </tr>
           </thead>
           <tbody>
@@ -37,8 +39,11 @@
               <td>{{item["status"]}}</td>
               <td>{{item["desc"]}}</td>
               <td>{{item["due"]}}</td>
+              
+              {% if view_model.user_role == "writer" %}
               <td><a href="{{ url_for('UpdateToDo', id=item['id'] ) }}">Update</a></td>
               <td><a href="{{ url_for('DeleteToDo', id=item['id'] ) }}">Delete</a></td>
+              {% endif %}
             </tr>
             {% endif %}
             {% endfor %}
@@ -48,6 +53,7 @@
 
       {% endfor %}
 
+  {% if view_model.user_role == "writer" %}
   <div class="row">
     <div class="col-md-12">
       <h2>Add To Do Item</h2>
@@ -75,5 +81,6 @@
       </form>
     </div>
   </div>
+  {% endif %}
   <br><br>
 {% endblock %}

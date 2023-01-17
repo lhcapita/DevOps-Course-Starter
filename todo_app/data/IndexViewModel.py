@@ -1,9 +1,10 @@
 from todo_app.data.Item import Item
 
 class ViewModel:
-    def __init__(self, items, lists, errored):
+    def __init__(self, items, lists, errored, role):
         self._items = items
         self._errored = errored
+        self._role = role
         self._sorted_items = {}
         self._lists = lists        
         self._sort_items()
@@ -35,6 +36,10 @@ class ViewModel:
     @property
     def errored(self):
         return self._errored
+
+    @property
+    def user_role(self):
+        return self._role
         
     @property 
     def not_started_items(self):
